@@ -306,6 +306,110 @@ cards.forEach((card) => {
 })
 ```
 
+### and again the cubes but this time diffrent!
+```html
+   <section id="hero">
+      <div class="item-1"></div>
+      <div class="item-2"></div>
+    </section>
+    <section id="home">
+      <div class="item-1"></div>
+      <div class="item-2"></div>
+    </section>
+```
+
+```css
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  overflow-x: hidden;
+}
+section {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+div {
+  width: 200px;
+  height: 200px;
+  transform: translateX(200px);
+  opacity: 0;
+  transition: 1s;
+}
+div.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+#hero {
+  border-bottom: 5px dashed black;
+  margin-bottom: 2rem;
+}
+#hero :first-child {
+  transform: translateX(400px);
+}
+#hero :first-child.show {
+  transform: translateX(0px);
+}
+#hero :last-child {
+  transform: translateX(-400px);
+}
+#hero :last-child.show {
+  transform: translateX(0px);
+}
+#hero .item-1 {
+  background: red;
+}
+#hero .item-2 {
+  background: rgb(42, 255, 237);
+}
+#home {
+  border-top: 5px dashed black;
+}
+#home .item-1 {
+  background: rgb(47, 0, 255);
+}
+#home .item-2 {
+  background: rgb(225, 0, 255);
+}
+
+```
+
+```js
+const cardsOne = document.querySelectorAll('#hero div')
+const cardsTwo = document.querySelectorAll('#home div')
+
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show')
+      } else {
+        entry.target.classList.remove('show')
+      }
+    })
+  },
+  {
+    threshold: 0.5,
+  }
+)
+cardsOne.forEach((card) => {
+  observer.observe(card)
+})
+cardsTwo.forEach((card) => {
+  observer.observe(card)
+})
+
+
+```
+
 ## Can I Use Intersection Observer?
 
 ![alt text](image.png)
